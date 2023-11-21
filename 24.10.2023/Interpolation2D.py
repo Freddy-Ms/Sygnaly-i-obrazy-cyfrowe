@@ -2,6 +2,9 @@ import numpy as np
 import cv2
 import math
 
+def mse(image1, image2):
+    return np.square(np.subtract(image1,image2)).mean()
+
 def resize(image,width,height):
     if len(image.shape) == 3:
         old_h, old_w, c = image.shape
@@ -61,3 +64,9 @@ cv2.imwrite("Image1_100x100.png", image1_100x100)
 cv2.imwrite("Image2_1000x700.jpg", image2_1000x700)
 cv2.imwrite("Image2_200x200.jpg", image2_200x200)
 cv2.imwrite("Image2_500x500.jpg", image2_500x500)
+print("MSE(image1,image1_100x100):", mse(image1,resize(image1_100x100,256,256)))
+print("MSE(image1,image1_355x420):", mse(image1,resize(image1_355x420,256,256)))
+print("MSE(image1,image1_500x500):", mse(image1,resize(image1_500x500,256,256)))
+print("MSE(image2,image2_1000x700):", mse(image2,resize(image2_1000x700,640,635)))
+print("MSE(image2,image2_200x200):", mse(image2,resize(image2_200x200,640,635)))
+print("MSE(image2,image2_500x500):", mse(image2,resize(image2_500x500,640,635)))
