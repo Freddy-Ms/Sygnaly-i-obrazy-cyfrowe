@@ -47,9 +47,17 @@ def resize(image,width,height):
 
 
 
-image =cv2.imread("Obraz.jpg")
-#image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-#print(image_gray.shape)
-obraz = resize(image,500,300)
-cv2.imwrite("Output.png",obraz)
-cv2.waitKey(0)
+image1 =cv2.imread("Input1_256x256.png")
+image2 = cv2.imread("Input2_640x635.jpg")
+image1_500x500 = resize(image1,500,500)
+image1_355x420 = resize(image1,355,420)
+image1_100x100 = resize(image1,100,100)
+image2_1000x700 = resize(image2,1000,700)
+image2_200x200 = resize(image2,200,200)
+image2_500x500 = resize(image2,500,500)
+cv2.imwrite("Image1_500x500.png", image1_500x500)
+cv2.imwrite("Image1_355x420.png", image1_355x420)
+cv2.imwrite("Image1_100x100.png", image1_100x100)
+cv2.imwrite("Image2_1000x700.jpg", image2_1000x700)
+cv2.imwrite("Image2_200x200.jpg", image2_200x200)
+cv2.imwrite("Image2_500x500.jpg", image2_500x500)
