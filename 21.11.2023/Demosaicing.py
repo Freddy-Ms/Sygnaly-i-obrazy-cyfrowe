@@ -275,8 +275,50 @@ def Fuji_test():
         plt.imshow(final, cmap="gray")  
         plt.title("Zdemozaikowany obraz")
         plt.show()
+def comparision_avg_max():
+    paths = [r"Bayer/circle.npy",r"Bayer/milky-way.npy",r"Bayer/mond.npy",r"Bayer/namib.npy",r"Bayer/pandas.npy"]
+    for path in paths:
+        image = np.load(path)
+        max = demosaic_Bayer_interpolation(image,"max")
+        avg = demosaic_Bayer_interpolation(image,"average")
+        mse = calculate_mse(max,avg)
+        mse = round(mse,10)
+        plt.figure()    
+        plt.subplot(1, 2, 1)
+        plt.imshow(max, cmap='gray')  
+        plt.title("Max Pooling")
+        plt.suptitle(f"Porównanie interpolacji max pooling vs average pooling \n MSE: {mse}")
+        plt.subplot(1, 2, 2)
+        plt.imshow(avg, cmap="gray")  
+        plt.title("Average Pooling")
+        plt.show()
+def comparision_original_avg_max():
+    paths = [r"Fuji/circle.npy",r"Fuji/milky-way.npy",r"Fuji/mond.npy",r"Fuji/namib.npy",r"Fuji/panda.npy"]
+    for path in paths:
+        image = np.load(path)
+        max = demosaic_Bayer_interpolation(image,"max")
+        avg = demosaic_Bayer_interpolation(image,"average")
+        mse_avg = calculate_mse(image,avg)
+        mse_avg = round(mse_avg,10)
+        mse_max = calculate_mse(image,max)
+        mse_max = round(mse_max,10)
+        print(f"{path} dla Max Pooling: {mse_max} dla Average: {mse_avg}")
+def comparision_avg_convolution():
+    paths = [r"Fuji/circle.npy",r"Fuji/milky-way.npy",r"Fuji/mond.npy",r"Fuji/namib.npy",r"Fuji/panda.npy"]
+    for path in paths:
+        image = np.load(path)
+        image1 = MosaicingBayer(image)
+        avg = demosaic_Bayer_interpolation(image1,"average")
+        conv = demosaic_Bayer_convolution(image1)
+        
+        mse_avg = calculate_mse(image,avg)
+        mse_avg = round(mse_avg,10)
+        mse_conv = calculate_mse(image,conv)
+        mse_conv= round(mse_conv,10)
+        print(f"{path} dla Convolution: {mse_conv} dla Average: {mse_avg}")
+
+
+
+
 if __name__ == "__main__":
-    #Bayer_test(1)
-    #Bayer_test(2)
-    #Bayer_test(3)
-    Fuji_test()
+    comparision_avg_convolution()
