@@ -1,2 +1,3 @@
 # Sygnaly i obrazy cyfrowe
- SiOC
+Informatyczne Systemy Automatyki \
+rok II semestr I
